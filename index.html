@@ -24,7 +24,8 @@
         var url = new URL(url_string);
         var vnp_TxnRef = url.searchParams.get("vnp_TxnRef");
         console.log(vnp_TxnRef);
-        window.location.href = 'manapp://payment?' +'vnp_TxnRef='+vnp_TxnRef +'&status=1';
+        //window.location.href = 'manapp://payment?' +'vnp_TxnRef='+vnp_TxnRef +'&status=1';
+        window.location.href = 'http://success.sdk.merchantbackapp';
       }
     </script>
   </body>

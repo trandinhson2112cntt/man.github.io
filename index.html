@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width,
+               initial-scale=1.0"
+    />
+    <link rel="stylesheet" href="style.css" class="css" />
+  </head>
+  <body>
+    <div class="success-page">
+      <img  src="https://cdn.dribbble.com/users/458522/screenshots/14007167/media/214f6fa81fbd40f3b65b2cb747393226.png?compress=1&resize=400x300" class="center" alt="" >
+     <h2>Thanh toán thành công !</h2>
+     <p>Đã thanh toán đơn hàng thành công</p>
+     <a onclick="openLink()" class="btn-view-orders">Tiếp tục</a> 
+    </div>
+    </div>
+    <script>
+      function openLink() { 
+        var url_string = window.location.href; 
+        var url = new URL(url_string);
+        var vnp_TxnRef = url.searchParams.get("vnp_TxnRef");
+        console.log(vnp_TxnRef);
+        window.location.href = 'manapp://payment?' +'vnp_TxnRef='+vnp_TxnRef +'&status=1';
+      }
+    </script>
+  </body>
+</html>

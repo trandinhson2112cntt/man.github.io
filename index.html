@@ -27,6 +27,7 @@
         if (vnp_ResponseCode != "00") {
           $("#image").attr("src", "https://www.iconsdb.com/icons/preview/red/warning-xxl.png");
           $("#title").html("Thanh toán thất bại!");
+          $("#title").css("color", "red");
           $("#desc").html("Đơn hàng thanh toán thất bại, vui lòng vào lịch sử đơn hàng để tiến hành thanh toán lại");
         } else {
           $("#image").attr(

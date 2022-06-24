@@ -9,23 +9,45 @@
                initial-scale=1.0"
     />
     <link rel="stylesheet" href="style.css" class="css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
+
   <body>
-    <div class="success-page">
-      <img  src="https://cdn.dribbble.com/users/458522/screenshots/14007167/media/214f6fa81fbd40f3b65b2cb747393226.png?compress=1&resize=400x300" class="center" alt="" >
-     <h2>Thanh toán thành công !</h2>
-     <p>Đã thanh toán đơn hàng thành công</p>
-     <a onclick="openLink()" class="btn-view-orders">Tiếp tục</a> 
-    </div>
+    <div class="success-page" id="">
+      <img id="image" src="" class="center" alt="" />
+      <h2 id="title">Thanh toán thành công !</h2>
+      <p id="desc">Đã thanh toán đơn hàng thành công</p>
+      <a onclick="openLink()" class="btn-view-orders">Tiếp tục</a>
     </div>
     <script>
-      function openLink() { 
-        var url_string = window.location.href; 
+      $(document).ready(function () {
+        var url_string = window.location.href;
         var url = new URL(url_string);
-        var vnp_TxnRef = url.searchParams.get("vnp_TxnRef");
-        console.log(vnp_TxnRef);
-        //window.location.href = 'manapp://payment?' +'vnp_TxnRef='+vnp_TxnRef +'&status=1';
-        window.location.href = 'http://success.sdk.merchantbackapp';
+        var vnp_ResponseCode = url.searchParams.get("vnp_ResponseCode");
+        if (vnp_ResponseCode != "00") {
+          $("#image").attr("src", "https://www.iconsdb.com/icons/preview/red/warning-xxl.png");
+          $("#title").html("Thanh toán thất bại!");
+          $("#desc").html("Đơn hàng thanh toán thất bại, vui lòng vào lịch sử đơn hàng để tiến hành thanh toán lại");
+        } else {
+          $("#image").attr(
+            "src",
+            "https://cdn.dribbble.com/users/458522/screenshots/14007167/media/214f6fa81fbd40f3b65b2cb747393226.png?compress=1&resize=400x300"
+          );
+          $("#title").html("Thanh toán thành công!");
+          $("#desc").html("Đã thanh toán đơn hàng thành công");
+        }
+      });
+      function openLink() {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var vnp_ResponseCode = url.searchParams.get("vnp_ResponseCode");
+        if (vnp_ResponseCode == 24) {
+          window.location.href = "http://cancel.sdk.merchantbackapp";
+        } else if (vnp_ResponseCode != "00") {
+          window.location.href = "http://fail.sdk.merchantbackapp";
+        } else if (vnp_ResponseCode == "00") {
+          window.location.href = "http://success.sdk.merchantbackapp";
+        }
       }
     </script>
   </body>
